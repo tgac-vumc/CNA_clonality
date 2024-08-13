@@ -12,7 +12,6 @@ rule all:
         
 #+++++++++++++++++++++++++++++++++++++ 1 CLONALITY STATISTICS  ++++++++++++++++++++++++++++++++++++
 # 1.1 Calculate LogLikeLihood and 
-"""
 rule Calculate_Clonality_statistics:
     input:
         Segments = data_dir + 'SupplementaryData_{dataset}.Rds',
@@ -23,7 +22,7 @@ rule Calculate_Clonality_statistics:
        "envs/Clonality.yaml"
     script:
         "scripts/Calculate_Clonality_statistics.R"
-"""
+
 #+++++++++++++++++++++++++++++++++++ 2 CLONALITY CLASSIFICATION  ++++++++++++++++++++++++++++++++++
 # 2.1 Train GMM using TRACERx clonality statistics
 rule Train_GMM:
