@@ -1,0 +1,5 @@
+---
+all:
+    datasets: ['TRACERx','UMCG','AUMC'] # specify dataset names
+    data_dir: "data/"        # Specify main data directory
+    output_dir: "output/"        # Specify main data directory   

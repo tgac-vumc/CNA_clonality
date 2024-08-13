@@ -1,0 +1,12 @@
+scripts/__pycache__/
+./*~
+./*/**~
+.cache/
+*~
+*#
+.snakemake/
+.keras/
+plots/
+output/
+data/
+logs/

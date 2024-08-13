@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconductor-qdnaseq
+  - bioconductor-dnacopy
+  - bioconductor-clonality
+  - r-devtools
