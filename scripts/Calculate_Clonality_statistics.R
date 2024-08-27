@@ -194,7 +194,7 @@ refData_LUSC <- read.table('reference/pfreq_lusc_tcga_split.csv', skip=0, fill=T
 output_df <- data.frame()
 
 # Iterate over comparisons
-for(i in 82:nrow(Comparisons)){
+for(i in 1:nrow(Comparisons)){
     # Subset Segments
     data <- Segments[,c(Comparisons$V1[i],Comparisons$V2[i])]
     
