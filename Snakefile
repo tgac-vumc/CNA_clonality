@@ -1,4 +1,4 @@
-Bconfigfile: "config.yaml"
+configfile: "config.yaml"
 #+++++++++++++++++++++++++++++++++++++++ 0 PREPARE WILDCARDS AND TARGET ++++++++++++++++++++++++++++++++++++++++++++
 # 0.1 Prepare wildcards and variables
 data_dir = config["all"]["data_dir"]
