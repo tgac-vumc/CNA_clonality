@@ -1,10 +1,10 @@
 # CNA_clonality
 
 <p align="center">
-  <img width="20%" height="20%" src="https://github.com/tgac-vumc/CNA_clonality/blob/main/dag.svg">
+  <img width="50%" height="50%" src="https://github.com/tgac-vumc/CNA_clonality/blob/main/dag.svg">
 </p>
 
-Code associated with manuscript "Diagnostic test accuracy to determine clonality between multiple tumors with pulmonary involvement using genome-wide copy number analysis"
+Code associated with manuscript "The added value of genome-wide copy nubers to objectively resolve clonality of multiple lung tumors with ambiguous or inconclusive mutational diagnosis"
 
 To run this pipeline Snakemake is required.
 
@@ -37,13 +37,12 @@ conda env create --name snakemake --file envs/snakemake.yaml
 ```
 activate the snakemake environment
 ```
-source activate snakemake
+conda activate snakemake
 
 ```
 
 Setup your files correctly:
 	- Specify directories of input and output files in config.yaml   
-	- Download input files (Supplementary Data in manuscript) and place in input directory
 
 navigate to CNA_clonality directory and start snakemake.
 
