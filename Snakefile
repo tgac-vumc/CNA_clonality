@@ -42,7 +42,7 @@ rule Determine_NGSpanel_clonality:
 rule Clonality_Classification:
     input:
         Clonality_statistics = output_dir + 'CNA_Clonality_statistics_{dataset}.txt',
-        Clonality_MC = output_dir + 'Mutations_Clonality_statistics_{dataset}.txt'
+        Clonality_MC = output_dir + 'Mutations_Clonality_statistics_{dataset}.txt',
         SampleTable = 'reference/SampleTables/SampleTable_{dataset}.csv'
     output:
         Clonality_classification = 'plots/Clonality_classification_{dataset}.pdf',
