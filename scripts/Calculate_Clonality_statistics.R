@@ -128,13 +128,10 @@ SampleNames <- colnames(Segments)
 PatientNames <- as.vector(sapply(SampleNames,function(x)strsplit(x,'_')[[1]][1]))
 nPatients <- length(unique(PatientNames))
 
-if(dataset == 'UMCG'){
-    PatientNames <- substring(PatientNames,1,nchar(PatientNames)-1)
-}
 #-------------------------------------------------------------------------------
 # 2.1 Create Comparions
 #-------------------------------------------------------------------------------
-if(dataset %in% c('TRACERx','UMCG')){
+if(dataset == 'TRACERx'){
     # Create empty data frames to store comparisons
     IntraPatient <- data.frame()
     InterPatient <- data.frame()
@@ -159,25 +156,16 @@ if(dataset %in% c('TRACERx','UMCG')){
             InterPatient <- rbind(InterPatient,
                                   matrix(c(PatientIx[1],sample(subset(Ix_to_consider,Ix_to_consider != PatientIx),1)),ncol=2))
 
-        }else if(dataset == 'UMCG'){
-            # For UMCG match all intra patient tumors and generate an equal amount of interpatient comparisons
-            IntraPatient <- rbind(IntraPatient,expand.grid.unique(PatientIx,PatientIx))
-            InterPatient_Comparisons <- expand.grid(PatientIx,subset(seq_along(PatientNames),!seq_along(PatientNames) %in% PatientIx))
-            InterPatient <- rbind(InterPatient, InterPatient_Comparisons[sample(1:nrow(InterPatient_Comparisons),nrow(expand.grid.unique(PatientIx,PatientIx))),])
+        }else if(dataset == 'AUMC'){
+            # For the AUMC dataset, we only make Intrapatient comparisons
+            # Create empty data frame
+            Comparisons <- data.frame()
+            for(patient in unique(PatientNames)){
+                # Append all pairwise combinations of one patient 
+                Comparisons <- rbind(Comparisons, as.data.frame(expand.grid.unique(which(PatientNames == patient),which(PatientNames == patient))))
+            }
         }
     }
-    colnames(InterPatient) <- colnames(IntraPatient)
-    Comparisons <- rbind(IntraPatient,InterPatient)
-}else if(dataset == 'AUMC'){
-    # For the AUMC dataset, we only make Intrapatient comparisons
-    # Create empty data frame
-    Comparisons <- data.frame()
-    for(patient in unique(PatientNames)){
-        # Append all pairwise combinations of one patient 
-        Comparisons <- rbind(Comparisons, as.data.frame(expand.grid.unique(which(PatientNames == patient),which(PatientNames == patient))))
-    }
-}
-
 #-------------------------------------------------------------------------------
 # 3.1 Calculate clonality statistics of pairs
 #-------------------------------------------------------------------------------
@@ -188,15 +176,14 @@ refData_LUAD <- read.table('reference/pfreq_luad_tcga_split.csv', skip=0, fill=T
 refData_LUSC <- read.table('reference/pfreq_lusc_tcga_split.csv', skip=0, fill=TRUE, header=TRUE, sep=",", row.names = 'X')
 
 
-
-
 # Intialize output dataframe
 output_df <- data.frame()
 
 # Iterate over comparisons
-for(i in 82:nrow(Comparisons)){
+for(i in 1:nrow(Comparisons)){
     # Subset Segments
     data <- Segments[,c(Comparisons$V1[i],Comparisons$V2[i])]
+    subtype <- SampleTable[SampleTable$sample == strsplit(sampleNames(data)[1],'_')[[1]][1], 'subtype'] 
     
     sampleCNA_split <- get_sample_data(data, TRUE)
     sampleCNA_whole <- get_sample_data(data, FALSE)
@@ -214,7 +201,7 @@ for(i in 82:nrow(Comparisons)){
     regular_output$llr2.luad.split <- LLR2_ref(data,refData_LUAD, split=TRUE)
     # LUSC (split)
     regular_output$llr2.lusc.split <- LLR2_ref(data,refData_LUSC, split=TRUE)
-
+    regular_output$llr2.selected <-  regular_output[[paste0('llr2.',tolower(subtype),'.split')]]
     output_df <- rbind(output_df,regular_output)
 }
 
