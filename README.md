@@ -1,4 +1,9 @@
 # CNA_clonality
+
+<p align="center">
+  <img width="20%" height="20%" src="https://github.com/tgac-vumc/CNA_clonality/blob/main/dag.svg">
+</p>
+
 Code associated with manuscript "Diagnostic test accuracy to determine clonality between multiple tumors with pulmonary involvement using genome-wide copy number analysis"
 
 To run this pipeline Snakemake is required.
