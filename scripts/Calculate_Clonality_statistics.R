@@ -155,9 +155,9 @@ if(dataset == 'TRACERx'){
             }
             InterPatient <- rbind(InterPatient,
                                   matrix(c(PatientIx[1],sample(subset(Ix_to_consider,Ix_to_consider != PatientIx),1)),ncol=2))
-            
-            colnames(InterPatient) <- colnames(IntraPatient)
-            Comparisons <- rbind(IntraPatient,InterPatient)
+            }
+        colnames(InterPatient) <- colnames(IntraPatient)
+        Comparisons <- rbind(IntraPatient,InterPatient)
         }else if(dataset == 'AUMC'){
             # For the AUMC dataset, we only make Intrapatient comparisons
             # Create empty data frame
@@ -168,7 +168,7 @@ if(dataset == 'TRACERx'){
             }
         }
     }
-}    
+    
 #-------------------------------------------------------------------------------
 # 3.1 Calculate clonality statistics of pairs
 #-------------------------------------------------------------------------------
